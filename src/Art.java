@@ -37,9 +37,9 @@ public class Art {
 	}
 
 	public static void run() {
-		//preset1(500, 500, 600, 1, 10, 20, 30, 1, 1); nonb crt
+		//preset1(500, 500, 600, 1, 10, 20, 30, 1, 1, 0); //nonb crt
 		
-		preset1(500, 500, 150, 1, 5, 10, 15, 0, 0, 1);
+		preset1(500, 500, 150, 1, 5, 10, 15, 0, 0, 0);
 		
 		//preset1(32, 32, 150, 1, 5, 10, 15);
 		//preset3(32, 32, 210, 1, 10, 10, 10);
@@ -84,17 +84,17 @@ public class Art {
 			public void draw(Graphics g2, int xD, int yD, int maxWi, int maxHe) {
 				super.draw(g2, xD, yD, maxWi, maxHe);
 				switch(verPatt) {
-				case -1:
-					break;
-				case 0:
-					drawRhythmCirclePulse(x, y, minSize, maxSize, maxPeriod, counter, rChange, gChange, bChange, this);
-					break;
-				case 1:
-					drawRhythmicCRTPulse(x, y, maxSize, hei / 10, maxPeriod, counter, rChange, gChange, bChange, this);
-					break;
-				case 2:
-					drawRhythmQuarterCirclePulse(0, 0, minSize, maxSize, maxPeriod, counter, rChange, gChange, bChange, this);
-					break;
+					case -1:
+						break;
+					case 0:
+						drawRhythmCirclePulse(x, y, minSize, maxSize, maxPeriod, counter, rChange, gChange, bChange, this);
+						break;
+					case 1:
+						drawRhythmicCRTPulse(x, y, maxSize, hei / 10, maxPeriod, counter, rChange, gChange, bChange, this);
+						break;
+					case 2:
+						drawRhythmQuarterCirclePulse(0, 0, minSize, maxSize, maxPeriod, counter, rChange, gChange, bChange, this);
+						break;
 				}
 				counter = (counter + 1) % maxPeriod;
 			}
@@ -135,7 +135,7 @@ public class Art {
 			}
 			
 		});
-		eP.addCanvas("ca", 5, false, 0, 0, wid, hei, ca, 5);
+		eP.addCanvas("ca", 5, "group", 0, 0, wid, hei, ca, 5);
 		fra = new WindowFrame(wid, hei);
 		//fra.getFrame().
 		
