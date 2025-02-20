@@ -34,16 +34,28 @@ import visual.frame.WindowFrame;
  * python file nearby.
  * 
  * 
+ * HAVING WRITTEN THE PROGRAM:
+ *  - Uses a default image defined in here when exporting the .jar
+ *  - Can toss any .jpg or .png in the auto-generated pngassets folder and it'll swap to that one
+ *  - Can even do that while it's live and it'll swap over
+ *  - There's a short delay on the transfer as we don't want it to do file reading every .2 seconds
+ * 
+ * 
  */
 
 public class PNGTuber {
 	
 	private static final String IMAGE_PATH_DEFAULT = "./main/assets/skull.png";
+	private static final int WIDTH = 250;
+	private static final int HEIGHT = 250;
+	
+	/** This timer is measured in .2 second chunks (so 50 would be 10 seconds), decides when to check for replacement images */
+	private static final int WAIT_TIME_FOR_NEW_IMAGE_CHECK = 25;
+
 	private static final int MODE_QUIET = 0;
 	private static final int MODE_SPEAKING = 1;
 	private static final int MODE_LOUD = 2;
-	private static final int WIDTH = 250;
-	private static final int HEIGHT = 250;
+
 	private static final int QUIET_SHAKE = 1;
 	private static final int SPEAKING_SHAKE = 10;
 	private static final int LOUD_SHAKE = 40;
@@ -73,7 +85,7 @@ public class PNGTuber {
 			interpretAudioLevel(getCurrentAudio());
 			updateDisplayedImage();
 			System.out.println(getCurrentAudio());
-			if(counter % 25 == 0 && localImageOverride()) {
+			if(counter % WAIT_TIME_FOR_NEW_IMAGE_CHECK == 0 && localImageOverride()) {
 				setupAltImages();
 			}
 			counter += 1;
