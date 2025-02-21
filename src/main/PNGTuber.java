@@ -67,6 +67,7 @@ public class PNGTuber {
 	private static int currentShake;
 	private static String imageToUse;
 	private static int counter;
+	private static int countdownToQuiet;
 
 	public static void main(String[] args) {
 		File f = new File("./pngassets/");
@@ -96,7 +97,7 @@ public class PNGTuber {
 		File dir = new File("./pngassets/");
 		boolean noFind = true;
 		for(String s : dir.list()) {
-			if(s.contains(".png") || s.contains("jpg")) {
+			if(s.contains(".png") || s.contains(".jpg")) {
 				noFind = false;
 				String newPath = "./pngassets/" + s;
 				boolean out = newPath != imageToUse;
@@ -109,17 +110,24 @@ public class PNGTuber {
 	}
 	
 	private static void interpretAudioLevel(double in) {
-		if(in < 10) {
-			currentMode = MODE_QUIET;
-			currentShake = QUIET_SHAKE;
+		if(in < 20) {
+			if(countdownToQuiet == 0) {
+				currentMode = MODE_QUIET;
+				currentShake = QUIET_SHAKE;
+			}
+			else {
+				countdownToQuiet -= 1;
+			}
 		}
 		else if (in < 300){
 			currentMode = MODE_SPEAKING;
 			currentShake = SPEAKING_SHAKE;
+			countdownToQuiet = 7;
 		}
 		else {
 			currentMode = MODE_LOUD;
 			currentShake = LOUD_SHAKE;
+			countdownToQuiet = 12;
 		}
 	}
 	
